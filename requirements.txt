@@ -1,0 +1,4 @@
+fastapi
+pydantic
+prisma
+python-dotenv
