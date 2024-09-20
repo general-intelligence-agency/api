@@ -47,7 +47,11 @@ async def get_api_key(credentials: HTTPAuthorizationCredentials = Security(secur
         )
     return credentials.credentials
 
-@app.post("/api/v1/applications")
+@app.get("/hello")
+async def hello():
+    return {"message": "Hello World"}
+
+@app.post("/v1/applications")
 async def handle_new_application(
     form_data: FormData, 
     api_key: str = Depends(get_api_key)
