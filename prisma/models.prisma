@@ -1,0 +1,129 @@
+
+model Entity {
+  id                   String        @id @default(uuid())
+  name                 String
+  website              String?
+  zipcode              String?
+  custom_fields        Json?
+  owner_first_name     String
+  owner_last_name      String
+  ownership_percentage Float
+  applications         Application[]
+  
+
+  LinkedInLookup LinkedInLookup[]
+
+  YelpLookup YelpLookup[]
+
+  GoogleMapsPlaceLookup GoogleMapsPlaceLookup[]
+
+  GoogleMapsDetailsLookup GoogleMapsDetailsLookup[]
+}
+
+model Application {
+  id         String  @id @default(uuid())
+  first_name String
+  last_name  String
+  email      String
+  phone_number String
+  entity     Entity  @relation(fields: [entity_id], references: [id])
+  entity_id  String
+}
+
+model LinkedInLookup {
+  id                    String   @id @default(uuid())
+  linkedin_internal_id  String
+  name                  String
+  description           String?
+  website               String?
+  industry              String?
+  company_size_min      Int?
+  company_size_max      Int?
+  company_size_linkedin Int?
+  company_type          String?
+  founded_year          Int?
+  specialities          String[]
+  tagline               String?
+  universal_name_id     String?
+  follower_count        Int?
+  last_updated          DateTime
+
+  entity                Entity?  @relation(fields: [entity_id], references: [id])
+  entity_id             String?  
+
+  hq                    Json?
+  locations             Json?
+  profile_pic_url       String?
+  background_cover_image_url String?
+}
+
+model YelpLookup {
+  id                    String   @id @default(uuid())
+  yelp_id               String   
+  alias                 String   
+  name                  String
+  image_url             String?
+  is_closed             Boolean
+  url                   String
+  review_count          Int
+  rating                Float
+  latitude              Float
+  longitude             Float
+  price                 String?
+  phone                 String?
+  display_phone         String?
+  distance              Float?
+  
+  categories            Json?
+  transactions          Json?
+  location              Json?
+  hours                 Json?   
+  attributes            Json?
+
+  last_updated          DateTime @default(now())
+
+  entity                Entity?  @relation(fields: [entity_id], references: [id])
+  entity_id             String?  
+}
+
+model GoogleMapsPlaceLookup {
+  id                    String   @id @default(uuid())
+  place_id              String   
+  name                  String
+  formatted_address     String?
+  business_status       String?
+  icon_url              String?
+  icon_background_color String?
+  icon_mask_base_uri    String?
+  price_level           Int?
+  rating                Float?
+  user_ratings_total    Int?
+  
+  geometry              Json?
+  opening_hours         Json?
+  photos                Json?
+  plus_code             Json?
+  types                 String[]
+
+  last_updated          DateTime @default(now())
+
+  entity                Entity?  @relation(fields: [entity_id], references: [id])
+  entity_id             String?  
+}
+
+model GoogleMapsDetailsLookup {
+  id                    String   @id @default(uuid())
+  name                  String
+  formatted_address     String?
+  formatted_phone_number String?
+  website               String?
+  rating                Float?
+  user_ratings_total    Int?
+  
+  opening_hours         Json?
+  
+  last_updated          DateTime @default(now())
+
+  entity                Entity?  @relation(fields: [entity_id], references: [id])
+  entity_id             String?  
+}
