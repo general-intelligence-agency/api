@@ -16,10 +16,7 @@ security = HTTPBearer()
 
 VALID_API_KEY = os.getenv("VALID_API_KEY") 
 
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
