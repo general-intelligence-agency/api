@@ -22,15 +22,16 @@ model Entity {
 }
 
 model Application {
-  id         String  @id @default(uuid())
-  first_name String
-  last_name  String
-  email      String
-  phone_number String
-  entity     Entity  @relation(fields: [entity_id], references: [id])
-  entity_id  String
+  id            String  @id @default(uuid())
+  first_name    String
+  last_name     String
+  email         String
+  phone_number  String
+  entity        Entity  @relation(fields: [entity_id], references: [id])
+  entity_id     String
 
-  created_at DateTime @default(now())
+  created_at    DateTime @default(now())
+  status        Status @default(PENDING_MANUAL_REVIEW)
 }
 
 model LinkedInLookup {
@@ -137,4 +138,12 @@ model GoogleMapsDetailsLookup {
   entity_id             String?  
 
   created_at DateTime @default(now())
+}
+
+enum Status {
+  PENDING_PROCESSING
+  PROCESSING
+  PENDING_MANUAL_REVIEW
+  APPROVED
+  DENIED
 }
