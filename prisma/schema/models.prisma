@@ -149,10 +149,28 @@ model AdverseMediaResult {
   explanation String
   created_at  DateTime @default(now())
  }
+ 
 enum Status {
   PENDING_PROCESSING
   PROCESSING
   PENDING_MANUAL_REVIEW
   APPROVED
   DENIED
+}
+
+model LLMEvaluation {
+  id               String   @id @default(uuid())
+  risk_bucket      String
+  explanation      String?
+  application_id   String   @unique
+  configuration_id String
+  configuration    LLMConfiguration @relation(fields: [configuration_id], references: [id])
+}
+
+model LLMConfiguration {
+  id                  String @id @default(uuid())
+  configuration       Json
+  configuration_version String
+
+  evaluations         LLMEvaluation[]
 }
