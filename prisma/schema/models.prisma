@@ -16,9 +16,9 @@ model Entity {
   GoogleMapsPlaceLookup GoogleMapsPlaceLookup[]
 
   GoogleMapsDetailsLookup GoogleMapsDetailsLookup[]
-
   created_at         DateTime             @default(now())
   AdverseMediaResult AdverseMediaResult[]
+  HighRiskIndustryResult HighRiskIndustryResult[]  // New relation
 }
 
 model Application {
@@ -149,8 +149,21 @@ model AdverseMediaResult {
   url         String
   explanation String
   created_at  DateTime @default(now())
- }
- 
+}
+
+model HighRiskIndustryResult {
+  id               String   @id @default(uuid())
+  entity           Entity   @relation(fields: [entity_id], references: [id])
+  entity_id        String
+  category         String
+  explanation      String?
+  matchedKeywords  String[]
+  evidenceUrl      String?
+  created_at       DateTime @default(now())
+
+  @@unique([entity_id, category])
+}
+
 enum Status {
   PENDING_PROCESSING
   PROCESSING
