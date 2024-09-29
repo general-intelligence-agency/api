@@ -185,10 +185,28 @@ model LLMEvaluation {
   created_at       DateTime         @default(now())
 }
 
+enum Lookup {
+  ADVERSE_MEDIA
+  SECRETARY_OF_STATE
+  GOVERNMENT_LOAN_DATA
+  SMALL_BUSINESS_ADMINSTRATION_DATABASE
+  YELP
+  LINKED_IN
+  FACEBOOK
+  INSTAGRAM
+  TIKTOK
+  GOOGLE_MAPS_PLACE
+  GOOGLE_MAPS_DETAILS
+}
+
 model LLMConfiguration {
   id                  String @id @default(uuid())
-  configuration       Json
+  configuration Json
   configuration_version String
-
+  lookups Lookup[]
+  expected_business String?
+  expected_geographical_area String?
+  high_risk_industries String[]
+  use_historical_approvals Boolean?
   evaluations         LLMEvaluation[]
 }
