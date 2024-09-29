@@ -199,6 +199,35 @@ enum Lookup {
   GOOGLE_MAPS_DETAILS
 }
 
+model HighRiskIndustriesSettings {
+  id                                        String  @id @default(uuid()) @unique
+    llmConfiguration LLMConfiguration? 
+  adultEntertainmentOrServices              Boolean @default(true)
+  cannabis                                  Boolean @default(true)
+  checkCashingMoneyServiceBusiness          Boolean @default(true)
+  counterfeitOrUnauthorizedGoods            Boolean @default(true)
+  crowdfundingVentureCapitalCompany         Boolean @default(true)
+  cryptoATM                                 Boolean @default(true)
+  debtCollections                           Boolean @default(true)
+  debtReductions                            Boolean @default(true)
+  drugsAndDrugParaphernalia                 Boolean @default(true)
+  embassyConsulateNonprofitNGO              Boolean @default(true)
+  estateAgentRealEstateBroker               Boolean @default(true)
+  travelAgency                              Boolean @default(true)
+  usedCarSales                              Boolean @default(true)
+  telemarketer                              Boolean @default(true)
+  firearmsAmmunitionsArmsExplosivesNuclear  Boolean @default(true)
+  gamblingJunketOperator                    Boolean @default(true)
+  gamingGameOfSkill                         Boolean @default(true)
+  preciousMetalsDealerJewelGem              Boolean @default(true)
+  prepaidOrGiftCards                        Boolean @default(true)
+  ransomwareRecoveryServices                Boolean @default(true)
+  shellBankInvestmentManagementMoneyManagement Boolean @default(true)
+  tobaccoVapeSupplies                       Boolean @default(true)
+  toxicFlammableRadioactiveMaterials        Boolean @default(true)
+  unregulatedPharmaceuticalsSales           Boolean @default(true)
+}
+
 model LLMConfiguration {
   id                  String @id @default(uuid())
   configuration Json
@@ -206,7 +235,8 @@ model LLMConfiguration {
   lookups Lookup[]
   expected_business String?
   expected_geographical_area String?
-  high_risk_industries String[]
+  high_risk_industries HighRiskIndustriesSettings? @relation(references: [id], fields: [high_risk_indutries_id])
+  high_risk_indutries_id String? @unique
   use_historical_approvals Boolean?
   evaluations         LLMEvaluation[]
 }
