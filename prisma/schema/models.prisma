@@ -240,3 +240,50 @@ model LLMConfiguration {
   use_historical_approvals Boolean?
   evaluations         LLMEvaluation[]
 }
+
+model FOIA7aLoanData {
+  id                        String   @id @default(uuid())
+  asofdate                  DateTime
+  program                   String?
+  borrname                  String?
+  borrstreet                String?
+  borrcity                  String?
+  borrstate                 String?
+  borrzip                   String?
+  bankname                  String?
+  bankfdicnumber            String?
+  bankncuanumber            String?
+  bankstreet                String?
+  bankcity                  String?
+  bankstate                 String?
+  bankzip                   String?
+  grossapproval             Float?
+  sbaguaranteedapproval     Float?
+  approvaldate              DateTime?
+  approvalfiscalyear        Int?
+  firstdisbursementdate     DateTime?
+  deliverymethod            String?
+  subprogram                String?
+  initialinterestrate       Float?
+  fixedorvariableinterestind String?
+  terminmonths              Int?
+  naicscode                 String?
+  naicsdescription          String?
+  franchisecode             String?
+  franchisename             String?
+  projectcounty             String?
+  projectstate              String?
+  sbadistrictoffice         String?
+  congressionaldistrict     String?
+  businesstype              String?
+  businessage               String?
+  loanstatus                String?
+  paidinfulldate            DateTime?
+  chargeoffdate             DateTime?
+  grosschargeoffamount      Float?
+  revolverstatus            String?
+  jobssupported             Int?
+  soldsecmrktind            String?
+  catalog_month             Int?
+  catalog_year              Int?
+}
