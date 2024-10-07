@@ -20,6 +20,7 @@ model Entity {
   AdverseMediaResult AdverseMediaResult[]
   HighRiskIndustryResult HighRiskIndustryResult[] 
   NAICSCodeGeneration NAICSCodeGeneration[]
+  RelevantLoanData FOIA7aLoanData[]
 }
 
 model NAICSCodeGeneration {
@@ -296,4 +297,6 @@ model FOIA7aLoanData {
   soldsecmrktind            String?
   catalog_month             Int?
   catalog_year              Int?
+  
+  Entity Entity[]
 }
