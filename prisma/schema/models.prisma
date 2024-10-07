@@ -18,7 +18,17 @@ model Entity {
   GoogleMapsDetailsLookup GoogleMapsDetailsLookup[]
   created_at         DateTime             @default(now())
   AdverseMediaResult AdverseMediaResult[]
-  HighRiskIndustryResult HighRiskIndustryResult[]  // New relation
+  HighRiskIndustryResult HighRiskIndustryResult[] 
+  NAICSCodeGeneration NAICSCodeGeneration[]
+}
+
+model NAICSCodeGeneration {
+  id          String   @id @default(uuid())
+  naics_code  String
+  explanation String
+
+  entity      Entity?  @relation(fields: [entity_id], references: [id])
+  entity_id   String?
 }
 
 model Application {
