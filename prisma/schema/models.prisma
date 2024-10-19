@@ -21,6 +21,20 @@ model Entity {
   HighRiskIndustryResult HighRiskIndustryResult[] 
   NAICSCodeGeneration NAICSCodeGeneration[]
   RelevantLoanData FOIA7aLoanData[]
+  SecretaryOfStateCheck SecretaryOfStateCheck[]
+}
+
+model SecretaryOfStateCheck {
+  id                    String   @id @default(uuid())
+  entity_details        Json?
+  entity_display        Json?
+  name_history          Json?
+  filing_history        Json?
+  merger_history        Json?
+  assumed_name_history  Json?
+
+  entity    Entity? @relation(fields: [entity_id], references: [id])
+  entity_id String?
 }
 
 model NAICSCodeGeneration {
