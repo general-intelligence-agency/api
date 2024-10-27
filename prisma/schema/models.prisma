@@ -26,15 +26,17 @@ model Entity {
 
 model SecretaryOfStateCheck {
   id                    String   @id @default(uuid())
-  entity_details        Json?
-  entity_display        Json?
-  name_history          Json?
-  filing_history        Json?
-  merger_history        Json?
-  assumed_name_history  Json?
+  sos_id                String
+  confidence_level      Float
+  date_of_formation     DateTime?
+  entity_type           String
+  data                  Json?
+  officers              Json[]
 
   entity    Entity? @relation(fields: [entity_id], references: [id])
   entity_id String?
+
+  created_at DateTime @default(now())
 }
 
 model NAICSCodeGeneration {
