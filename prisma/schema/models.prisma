@@ -4,10 +4,12 @@ model Entity {
   website              String?
   zipcode              String?
   custom_fields        Json?
-  owner_first_name     String
-  owner_last_name      String
-  ownership_percentage Float
+  owner_first_name     String?
+  owner_last_name      String?
+  ownership_percentage Float?
   applications         Application[]
+  organization         Organization? @relation(fields: [organization_id], references: [id])
+  organization_id      String?       // Made optional with ?
 
   LinkedInLookup LinkedInLookup[]
 
@@ -56,12 +58,14 @@ model Application {
   phone_number     String
   entity           Entity         @relation(fields: [entity_id], references: [id])
   entity_id        String
+  organization     Organization?  @relation(fields: [organization_id], references: [id])
+  organization_id  String?        // Made optional with ?
 
   created_at       DateTime       @default(now())
   status           Status         @default(PENDING_MANUAL_REVIEW)
 
   llmEvaluation LLMEvaluation[]
-  }
+}
 
 model LinkedInLookup {
   id                    String   @id @default(uuid())
@@ -315,4 +319,12 @@ model FOIA7aLoanData {
   catalog_year              Int?
   
   Entity Entity[]
+}
+
+model Organization {
+  id            String        @id @default(uuid())
+  name          String
+  applications  Application[]
+  entities      Entity[]
+  created_at    DateTime      @default(now())
 }
