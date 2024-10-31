@@ -35,8 +35,8 @@ model SecretaryOfStateCheck {
   data                  Json?
   officers              Json[]
 
-  entity    Entity? @relation(fields: [entity_id], references: [id])
-  entity_id String?
+  entity               Entity    @relation(fields: [entity_id], references: [id])
+  entity_id            String
 
   created_at DateTime @default(now())
 }
@@ -45,6 +45,7 @@ model NAICSCodeGeneration {
   id          String   @id @default(uuid())
   naics_code  String
   explanation String
+  created_at  DateTime @default(now())
 
   entity      Entity?  @relation(fields: [entity_id], references: [id])
   entity_id   String?
@@ -257,6 +258,7 @@ model HighRiskIndustriesSettings {
   tobaccoVapeSupplies                       Boolean @default(true)
   toxicFlammableRadioactiveMaterials        Boolean @default(true)
   unregulatedPharmaceuticalsSales           Boolean @default(true)
+  created_at                                DateTime @default(now())
 }
 
 model LLMConfiguration {
@@ -270,6 +272,7 @@ model LLMConfiguration {
   high_risk_indutries_id String? @unique
   use_historical_approvals Boolean?
   evaluations         LLMEvaluation[]
+  created_at          DateTime @default(now())
 }
 
 model FOIA7aLoanData {
