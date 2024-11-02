@@ -24,6 +24,15 @@ model Entity {
   NAICSCodeGeneration NAICSCodeGeneration[]
   RelevantLoanData FOIA7aLoanData[]
   SecretaryOfStateCheck SecretaryOfStateCheck[]
+  BusinessDescription BusinessDescription[]
+}
+
+model BusinessDescription {
+  id String @id @default(uuid())
+  description String
+  sources String[]
+  entity               Entity    @relation(fields: [entity_id], references: [id])
+  entity_id            String
 }
 
 model SecretaryOfStateCheck {
