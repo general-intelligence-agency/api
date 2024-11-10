@@ -76,6 +76,7 @@ model Application {
   status           Status         @default(PENDING_MANUAL_REVIEW)
 
   llmEvaluation LLMEvaluation[]
+  filledRequirementLists FilledRequirementsList[]
 }
 
 model LinkedInLookup {
@@ -340,5 +341,29 @@ model Organization {
   name          String
   applications  Application[]
   entities      Entity[]
+  requirements_lists RequirementsList[]
   created_at    DateTime      @default(now())
+}
+
+model RequirementsList {
+  id              String    @id @default(uuid())
+  name            String
+  version         String
+  requirements    Json      // Requirements[]
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
+  deleted_at      DateTime?
+  created_at      DateTime  @default(now())
+  
+  filledRequirements FilledRequirementsList[]
+}
+
+model FilledRequirementsList {
+  id                String    @id @default(uuid())
+  requirements_list RequirementsList @relation(fields: [requirements_list_id], references: [id])
+  requirements_list_id String
+  application       Application @relation(fields: [application_id], references: [id])
+  application_id    String
+  values           Json       // FilledRequirements[]
+  created_at       DateTime   @default(now())
 }
