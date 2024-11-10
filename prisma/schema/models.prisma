@@ -349,7 +349,7 @@ model RequirementsList {
   id              String    @id @default(uuid())
   name            String
   version         String
-  requirements    Json      // Requirements[]
+  requirementsCsv    String      
   organization    Organization @relation(fields: [organization_id], references: [id])
   organization_id String
   deleted_at      DateTime?
@@ -364,6 +364,6 @@ model FilledRequirementsList {
   requirements_list_id String
   application       Application @relation(fields: [application_id], references: [id])
   application_id    String
-  values           Json       // FilledRequirements[]
+  valuesCsv           String       
   created_at       DateTime   @default(now())
 }
